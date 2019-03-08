@@ -55,11 +55,11 @@ void setup()
     spwm.Start();
 
     InitPWMTimer(); // init timer that calls ShiftPWM.DoEvents()
-    InitDutyChangeTimer(); // init timer that changes intencity (duty cycle) of each LED
+    InitDutyChangeTimer(); // init timer that changes intensity (duty cycle) of each LED
 }
 
 void loop()
 {
-    Serial.println(spwm._counter, DEC); // kept _counter as public for debug purpose
+    //Serial.println(spwm._counter, DEC); // kept _counter is now private
     delay(100);
 }

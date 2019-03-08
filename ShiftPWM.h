@@ -33,11 +33,10 @@ class ShiftPWM
         void IRAM_ATTR DoEvents();
         struct Duties Duties;
         uint8_t BitOrder;
-        volatile byte _counter;
     private:
+        volatile byte _counter;
         void WriteByte(byte value);        
         struct Pins _pins;
         hw_timer_t * _timer;
-        bool _running;
-        
+        volatile bool _running;        
 };

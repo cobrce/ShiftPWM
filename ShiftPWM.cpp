@@ -37,11 +37,14 @@ void ShiftPWM::Pause()
 }
 void ShiftPWM::DoEvents()
 {
-    this->_counter++;
-    int value = 0;
-    for (int i = 0; i < 8; i++)
-        value = (value << 1) | (((byte*)&this->Duties)[7 - i] > this->_counter);
-    this->WriteByte(value);
+	if (this->_running)
+	{
+		this->_counter++;
+		int value = 0;
+		for (int i = 0; i < 8; i++)
+			value = (value << 1) | (((byte*)&this->Duties)[7 - i] > this->_counter);
+		this->WriteByte(value);
+	}
 }
 
 void ShiftPWM::WriteByte(byte value)
