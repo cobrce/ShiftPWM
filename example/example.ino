@@ -60,6 +60,6 @@ void setup()
 
 void loop()
 {
-    Serial.println(spwm._counter, DEC);
+    Serial.println(spwm._counter, DEC); // kept _counter as public for debug purpose
     delay(100);
 }
