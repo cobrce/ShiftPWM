@@ -1,8 +1,10 @@
-#pragma ONCE
+#ifndef SHIFTPWM_H_
+#define SHIFTPWM_H_
 
-#include <Arduino.h>
 
-typedef struct Duties
+typedef unsigned char byte;
+
+struct Duties
 {
     byte D0;
     byte D1;
@@ -14,29 +16,14 @@ typedef struct Duties
     byte D7;   
 };
 
-typedef struct Pins
-{
-    int Data;
-    int Latch;
-    int Clock;
-};
-
-hw_timer_t * SetTimer(int timer,void(*callback)(),int periode_us = 10);
-void StartTimer(hw_timer_t * timer);
 
 class ShiftPWM
 {
     public:
-        ShiftPWM(Pins pins,Duties duties,uint8_t bitOrder);
-        void Start();
-        void Pause();
-        void IRAM_ATTR DoEvents();
-        struct Duties Duties;
-        uint8_t BitOrder;
+        ShiftPWM(Duties duties);
+        unsigned char Calculate();
+        struct Duties duties;
     private:
         volatile byte _counter;
-        void WriteByte(byte value);        
-        struct Pins _pins;
-        hw_timer_t * _timer;
-        volatile bool _running;        
 };
+#endif // SHIFTPWM_H_
