@@ -8,5 +8,6 @@
     },
     "files.associations": {
         "cstddef": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }

@@ -10,8 +10,14 @@
 
 ///////////////// CODE TO GENERATE PWM
 
+#define MAX_DUTY 50+MIN_DUTY
+#define MIN_DUTY 5
+#define DUTY_2 43 + MIN_DUTY
+#define DUTY_1 25 + MIN_DUTY
+#define DUTY_0 MIN_DUTY
+
 /// Creating ShiftPWM
-ShiftPWM spwm = ShiftPWM(Duties{10,40,80,120,160,200,0,0});
+ShiftPWM spwm = ShiftPWM(Duties{DUTY_0,DUTY_1,DUTY_2,MAX_DUTY,DUTY_2,DUTY_1,DUTY_0,0});
 
 volatile byte value = 0;
 
@@ -28,15 +34,16 @@ void InitPWMTimer() { StartTimer(SetTimer(0, TimerHandler)); }
 
 ///////////////// CODE TO CHANGE DUTY CYCLE OF THREE FIRST PINS
 
-int directions[6] = {1,1,1,1,1,1};
+int directions[7] = {1,1,1,1,1,1,1};
 
+#define duties(x) ((byte*)&spwm.duties)[x]
 
 void IRAM_ATTR DutyChangeTimerHandler()
 {
-    for (int i = 0;i<6;i++)
+    for (int i = 0;i<7;i++)
     {
-        ((byte*)(&spwm.duties))[i]+=directions[i];
-        if (((byte*)(&spwm.duties))[i] < 10 ||((byte*)&spwm.duties)[i] > 200)
+        duties(i)+=directions[i];
+        if (duties(i) < MIN_DUTY || duties(i) > MAX_DUTY)
             directions[i] *=-1;
     }
 }
