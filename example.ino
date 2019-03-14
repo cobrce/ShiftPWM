@@ -75,6 +75,6 @@ void setup()
 
 void loop()
 {
-    // Serial.println(value, DEC); // kept _counter is now private
+    // Serial.println(value, DEC); // _counter is now private
     delay(100);
 }
